@@ -6,7 +6,7 @@ export function JobListings() {
   const jobs = useAppStore((state) => state.jobs);
 
   return (
-    <section className="mx-auto max-w-4xl px-6 py-24">
+    <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-24">
       <div className="mb-12">
         <h1 className="text-4xl font-bold tracking-tight text-[#0a0a0a]">Open Roles</h1>
         <p className="mt-2 text-lg text-neutral-600">

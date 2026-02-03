@@ -7,7 +7,7 @@ export function ThankYou() {
   const applicationId = searchParams.get("id");
 
   return (
-    <section className="mx-auto max-w-2xl px-6 py-24 text-center">
+    <section className="mx-auto max-w-2xl px-4 py-16 text-center sm:px-6 sm:py-24">
       <Card>
         <CardContent className="p-12">
           <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-[#fc4c02]/10">

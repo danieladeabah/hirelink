@@ -2,6 +2,7 @@ import { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import type { Application } from "../../types";
 import { Button } from "../ui/button";
+import { Textarea } from "../ui/textarea";
 import { Card, CardContent } from "../ui/card";
 
 interface OfferStageProps {
@@ -65,8 +66,8 @@ Sincerely,
             <Dialog.Title className="text-lg font-semibold text-[#0a0a0a]">
               Offer Letter
             </Dialog.Title>
-            <textarea
-              className="mt-4 h-64 w-full resize-none rounded-lg border border-neutral-300 bg-white p-4 text-sm text-[#0a0a0a] focus:outline-none focus:ring-2 focus:ring-[#fc4c02]"
+            <Textarea
+              className="mt-4 min-h-64 resize-none"
               value={offerText}
               onChange={(e) => setOfferText(e.target.value)}
               placeholder="Enter offer letter content..."

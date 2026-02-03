@@ -1,17 +1,11 @@
 import { useState } from "react";
 import { useAppStore } from "../../stores/use-app-store";
 import type { Application, PipelineStage } from "../../types";
+import { PIPELINE_STAGES } from "../../types";
 import { Card, CardContent } from "../../components/ui/card";
 import { Button } from "../../components/ui/button";
 import { CandidateReviewPanel } from "../../components/recruiter/candidate-review-panel";
 import { cn } from "../../lib/utils";
-
-const STAGES: PipelineStage[] = [
-  "Applied",
-  "Reviewed",
-  "Interview Scheduled",
-  "Offer Sent",
-];
 
 export function Pipeline() {
   const applications = useAppStore((state) => state.applications);
@@ -29,7 +23,7 @@ export function Pipeline() {
   };
 
   return (
-    <section className="mx-auto max-w-7xl px-6 py-24">
+    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-[#0a0a0a]">Recruitment Pipeline</h1>
         <p className="mt-2 text-neutral-600">
@@ -40,7 +34,7 @@ export function Pipeline() {
       <div className="grid gap-6 lg:grid-cols-[1fr_400px]">
         <div className="overflow-x-auto">
           <div className="flex gap-4 pb-4" style={{ minWidth: "max-content" }}>
-            {STAGES.map((stage) => (
+            {PIPELINE_STAGES.map((stage) => (
               <PipelineColumn
                 key={stage}
                 stage={stage}
@@ -107,7 +101,7 @@ function PipelineColumn({
               <p className="text-sm text-neutral-500">{app.jobTitle}</p>
               <p className="mt-1 text-xs text-neutral-400">{app.id}</p>
               <div className="mt-2 flex flex-wrap gap-1">
-                {STAGES.filter((s) => s !== stage).map((nextStage) => (
+                {PIPELINE_STAGES.filter((s) => s !== stage).map((nextStage) => (
                   <Button
                     key={nextStage}
                     variant="ghost"

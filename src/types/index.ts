@@ -1,8 +1,11 @@
-export type PipelineStage =
-  | "Applied"
-  | "Reviewed"
-  | "Interview Scheduled"
-  | "Offer Sent";
+export const PIPELINE_STAGES = [
+  "Applied",
+  "Reviewed",
+  "Interview Scheduled",
+  "Offer Sent",
+] as const;
+
+export type PipelineStage = (typeof PIPELINE_STAGES)[number];
 
 export interface Job {
   id: string;

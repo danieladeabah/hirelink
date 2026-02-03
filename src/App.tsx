@@ -5,7 +5,7 @@ import { ApplicationForm } from "./components/application-form/application-form"
 import { ThankYou } from "./pages/thank-you";
 import { Pipeline } from "./pages/recruiter/pipeline";
 
-export default function App() {
+export function App() {
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-[#fafafa] text-[#0a0a0a] antialiased">

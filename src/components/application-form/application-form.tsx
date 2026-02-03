@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect, useCallback } from "react";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAppStore } from "../../stores/use-app-store";
@@ -10,10 +10,12 @@ import {
   type PersonalInfoFormData,
   type ExperienceFormData,
 } from "../../lib/validation";
+import { loadDraft, saveDraft, clearDraft } from "../../lib/form-draft";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Card, CardContent, CardHeader } from "../ui/card";
+import { Textarea } from "../ui/textarea";
 import { cn } from "../../lib/utils";
 
 const STEPS = [
@@ -22,20 +24,35 @@ const STEPS = [
   { id: 3, label: "Resume Upload", key: "resume" },
 ] as const;
 
+function getStepFromUrl(searchParams: URLSearchParams, draftStep?: number): number {
+  const stepParam = searchParams.get("step");
+  if (stepParam) {
+    const n = parseInt(stepParam, 10);
+    return Math.min(3, Math.max(1, Number.isNaN(n) ? 1 : n));
+  }
+  return Math.min(3, Math.max(1, draftStep ?? 1));
+}
+
 export function ApplicationForm() {
   const { jobId } = useParams<{ jobId: string }>();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const jobs = useAppStore((state) => state.jobs);
   const addApplication = useAppStore((state) => state.addApplication);
 
   const job = jobs.find((j) => j.id === jobId);
-  const [step, setStep] = useState(1);
+  const draft = jobId ? loadDraft(jobId) : null;
+
+  const step = getStepFromUrl(searchParams, draft?.step);
   const [resumeError, setResumeError] = useState<string | null>(null);
   const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const [resumeFileNameFromDraft, setResumeFileNameFromDraft] = useState<string | null>(
+    draft?.resumeFileName ?? null
+  );
 
   const personalForm = useForm<PersonalInfoFormData>({
     resolver: zodResolver(personalInfoSchema),
-    defaultValues: {
+    defaultValues: draft?.personalInfo ?? {
       fullName: "",
       email: "",
       phone: "",
@@ -44,35 +61,65 @@ export function ApplicationForm() {
 
   const experienceForm = useForm<ExperienceFormData>({
     resolver: zodResolver(experienceSchema) as Resolver<ExperienceFormData>,
-    defaultValues: {
+    defaultValues: draft?.experience ?? {
       yearsOfExperience: 0,
       skills: "",
       portfolioLink: "",
     },
   });
 
+  // Sync URL with step on mount if missing (so refresh persists)
+  useEffect(() => {
+    if (jobId && !searchParams.has("step")) {
+      setSearchParams({ step: String(step) }, { replace: true });
+    }
+  }, [jobId, step, searchParams, setSearchParams]);
+
+  const personalValues = personalForm.watch();
+  const experienceValues = experienceForm.watch();
+
+  // Persist draft to localStorage when form data or step changes
+  useEffect(() => {
+    if (!jobId) return;
+    saveDraft(jobId, {
+      step,
+      personalInfo: personalForm.getValues(),
+      experience: experienceForm.getValues(),
+      resumeFileName: resumeFile?.name ?? resumeFileNameFromDraft,
+    });
+  }, [jobId, step, personalValues, experienceValues, resumeFile, resumeFileNameFromDraft]);
+
+  const goToStep = useCallback(
+    (newStep: number) => {
+      setSearchParams({ step: String(newStep) }, { replace: true });
+    },
+    [setSearchParams]
+  );
+
   const handleNext = async () => {
     if (step === 1) {
       const valid = await personalForm.trigger();
-      if (valid) setStep(2);
+      if (valid) goToStep(2);
     } else if (step === 2) {
       const valid = await experienceForm.trigger();
-      if (valid) setStep(3);
+      if (valid) goToStep(3);
     }
   };
 
-  const handleBack = () => setStep((s) => Math.max(1, s - 1));
+  const handleBack = () => goToStep(Math.max(1, step - 1));
 
   const handleResumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setResumeError(null);
     const files = e.target.files;
     if (!files?.length) {
       setResumeFile(null);
+      setResumeFileNameFromDraft(null);
       return;
     }
     const result = resumeSchema.safeParse({ resume: files });
     if (result.success) {
       setResumeFile(files[0]);
+      setResumeFileNameFromDraft(files[0].name);
     } else {
       const firstIssue = result.error.issues[0];
       setResumeError(firstIssue?.message ?? "Invalid file");
@@ -97,12 +144,13 @@ export function ApplicationForm() {
       resumeFileName: resumeFile.name,
     });
 
+    clearDraft(job.id);
     navigate(`/thank-you?id=${applicationId}`);
   };
 
   if (!job) {
     return (
-      <section className="mx-auto max-w-2xl px-6 py-24">
+      <section className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24">
         <Card className="border-0 bg-[#fafafa]">
           <CardContent className="p-8">
             <p className="text-neutral-600">Job not found.</p>
@@ -120,7 +168,7 @@ export function ApplicationForm() {
   }
 
   return (
-    <section className="mx-auto max-w-2xl px-6 py-24">
+    <section className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-[#0a0a0a]">Apply: {job.title}</h1>
         <p className="mt-2 text-neutral-600">{job.location}</p>
@@ -212,10 +260,10 @@ export function ApplicationForm() {
               </div>
               <div>
                 <Label htmlFor="skills">Skills</Label>
-                <textarea
+                <Textarea
                   id="skills"
                   rows={4}
-                  className="mt-1 flex w-full rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm text-[#0a0a0a] placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#fc4c02]"
+                  className="mt-1"
                   placeholder="Describe your skills and technologies..."
                   {...experienceForm.register("skills")}
                 />
@@ -260,18 +308,32 @@ export function ApplicationForm() {
                   Selected: {resumeFile.name}
                 </p>
               )}
+              {!resumeFile && resumeFileNameFromDraft && (
+                <p className="mt-2 text-sm text-neutral-500">
+                  Previously selected: {resumeFileNameFromDraft} — please select again after refresh.
+                </p>
+              )}
             </div>
           )}
 
           <div className="mt-8 flex justify-between">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={handleBack}
-              disabled={step === 1}
-            >
-              Back
-            </Button>
+            {step === 1 ? (
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => navigate("/")}
+              >
+                Exit
+              </Button>
+            ) : (
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleBack}
+              >
+                Back
+              </Button>
+            )}
             {step < 3 ? (
               <Button type="button" onClick={handleNext}>
                 Next
