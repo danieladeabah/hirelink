@@ -3,10 +3,14 @@ import { Button } from "../ui/button";
 
 export function Header() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-[#0f1419]/95 backdrop-blur-sm">
+    <header className="fixed top-0 left-0 right-0 z-50 border-b border-neutral-200 bg-white/95 backdrop-blur-sm">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-        <Link to="/" className="text-xl font-bold text-white hover:text-white/90">
-          HireLink
+        <Link to="/" className="flex items-center">
+          <img
+            src="/logo.png"
+            alt="HireLink"
+            className="h-9 w-auto rounded-xl"
+          />
         </Link>
         <nav className="flex items-center gap-4">
           <Link to="/">

@@ -8,7 +8,7 @@ import { Pipeline } from "./pages/recruiter/pipeline";
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-[#0f1419] text-white antialiased">
+      <div className="min-h-screen bg-[#fafafa] text-[#0a0a0a] antialiased">
         <Header />
         <main className="pt-16">
           <Routes>

@@ -15,14 +15,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <Comp
         ref={ref}
         className={cn(
-          "inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3b82f6] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0f1419] disabled:pointer-events-none disabled:opacity-50",
+          "inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fc4c02] focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:pointer-events-none disabled:opacity-50",
           {
-            "bg-[#3b82f6] text-white hover:bg-[#2563eb]":
+            "bg-[#fc4c02] text-white hover:bg-[#e04402]":
               variant === "primary",
-            "bg-white/10 text-white hover:bg-white/20": variant === "secondary",
-            "border border-white/20 bg-transparent text-white hover:bg-white/5":
+            "bg-neutral-100 text-[#0a0a0a] hover:bg-neutral-200": variant === "secondary",
+            "border border-neutral-300 bg-transparent text-[#0a0a0a] hover:bg-neutral-50":
               variant === "outline",
-            "text-white hover:bg-white/10": variant === "ghost",
+            "text-[#0a0a0a] hover:bg-neutral-100": variant === "ghost",
           },
           {
             "h-9 px-4 text-sm": size === "sm",

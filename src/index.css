@@ -1,8 +1,14 @@
 @import "tailwindcss";
 
+:root {
+  --hirelink-orange: #fc4c02;
+  --hirelink-orange-hover: #e04402;
+  --hirelink-black: #0a0a0a;
+}
+
 body {
   min-height: 100vh;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: #0f1419;
-  color: #fff;
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: #fafafa;
+  color: #0a0a0a;
 }

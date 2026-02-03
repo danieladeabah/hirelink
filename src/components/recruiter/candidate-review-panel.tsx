@@ -30,38 +30,38 @@ export function CandidateReviewPanel({ application, onClose }: CandidateReviewPa
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <h2 className="text-lg font-semibold">{application.personalInfo.fullName}</h2>
+        <h2 className="text-lg font-semibold text-[#0a0a0a]">{application.personalInfo.fullName}</h2>
         <Button variant="ghost" size="sm" onClick={onClose}>
           ✕
         </Button>
       </CardHeader>
       <CardContent className="space-y-6">
         <div>
-          <p className="text-sm text-white/60">Application ID</p>
-          <p className="font-mono text-sm">{application.id}</p>
+          <p className="text-sm text-neutral-500">Application ID</p>
+          <p className="font-mono text-sm text-[#0a0a0a]">{application.id}</p>
         </div>
 
         <div>
-          <p className="text-sm text-white/60">Position</p>
-          <p className="font-medium">{application.jobTitle}</p>
+          <p className="text-sm text-neutral-500">Position</p>
+          <p className="font-medium text-[#0a0a0a]">{application.jobTitle}</p>
         </div>
 
         <div>
-          <p className="text-sm text-white/60">Contact</p>
-          <p>{application.personalInfo.email}</p>
-          <p>{application.personalInfo.phone}</p>
+          <p className="text-sm text-neutral-500">Contact</p>
+          <p className="text-[#0a0a0a]">{application.personalInfo.email}</p>
+          <p className="text-[#0a0a0a]">{application.personalInfo.phone}</p>
         </div>
 
         <div>
-          <p className="text-sm text-white/60">Experience</p>
-          <p>{application.experience.yearsOfExperience} years</p>
-          <p className="mt-1 text-sm">{application.experience.skills}</p>
+          <p className="text-sm text-neutral-500">Experience</p>
+          <p className="text-[#0a0a0a]">{application.experience.yearsOfExperience} years</p>
+          <p className="mt-1 text-sm text-neutral-700">{application.experience.skills}</p>
           {application.experience.portfolioLink && (
             <a
               href={application.experience.portfolioLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2 block text-sm text-[#3b82f6] hover:underline"
+              className="mt-2 block text-sm text-[#fc4c02] hover:underline"
             >
               Portfolio →
             </a>
@@ -70,13 +70,13 @@ export function CandidateReviewPanel({ application, onClose }: CandidateReviewPa
 
         {application.resumeFileName && (
           <div>
-            <p className="text-sm text-white/60">Resume</p>
-            <p className="text-sm">{application.resumeFileName}</p>
+            <p className="text-sm text-neutral-500">Resume</p>
+            <p className="text-sm text-[#0a0a0a]">{application.resumeFileName}</p>
           </div>
         )}
 
         <div>
-          <p className="mb-2 text-sm text-white/60">Score (1–5)</p>
+          <p className="mb-2 text-sm text-neutral-500">Score (1–5)</p>
           <div className="flex gap-2">
             {[1, 2, 3, 4, 5].map((n) => (
               <Button
@@ -130,7 +130,7 @@ export function CandidateReviewPanel({ application, onClose }: CandidateReviewPa
           />
         )}
 
-        <p className="text-xs text-white/50">
+        <p className="text-xs text-neutral-400">
           Applied {new Date(application.createdAt).toLocaleDateString("en-US", {
             month: "short",
             day: "numeric",

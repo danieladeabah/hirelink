@@ -29,9 +29,9 @@ export function InterviewScheduler({
   return (
     <Card>
       <CardContent className="p-4">
-        <h3 className="font-semibold">Schedule Interview</h3>
+        <h3 className="font-semibold text-[#0a0a0a]">Schedule Interview</h3>
         {scheduled && currentDate ? (
-          <p className="mt-2 text-sm text-emerald-400">
+          <p className="mt-2 text-sm text-[#fc4c02]">
             Scheduled: {new Date(currentDate).toLocaleString("en-US", {
               dateStyle: "medium",
               timeStyle: "short",

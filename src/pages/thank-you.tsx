@@ -10,9 +10,9 @@ export function ThankYou() {
     <section className="mx-auto max-w-2xl px-6 py-24 text-center">
       <Card>
         <CardContent className="p-12">
-          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/20">
+          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-[#fc4c02]/10">
             <svg
-              className="h-8 w-8 text-emerald-400"
+              className="h-8 w-8 text-[#fc4c02]"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -25,13 +25,13 @@ export function ThankYou() {
               />
             </svg>
           </div>
-          <h1 className="text-3xl font-bold">Application Submitted</h1>
-          <p className="mt-4 text-white/70">
+          <h1 className="text-3xl font-bold text-[#0a0a0a]">Application Submitted</h1>
+          <p className="mt-4 text-neutral-600">
             Thank you for applying. We will review your application and get back
             to you soon.
           </p>
           {applicationId && (
-            <p className="mt-6 rounded-lg bg-white/5 px-4 py-3 font-mono text-sm">
+            <p className="mt-6 rounded-lg bg-neutral-100 px-4 py-3 font-mono text-sm text-[#0a0a0a]">
               Your application ID: <strong>{applicationId}</strong>
             </p>
           )}

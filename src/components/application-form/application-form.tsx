@@ -105,7 +105,7 @@ export function ApplicationForm() {
       <section className="mx-auto max-w-2xl px-6 py-24">
         <Card>
           <CardContent className="p-8">
-            <p className="text-white/80">Job not found.</p>
+            <p className="text-neutral-600">Job not found.</p>
             <Button
               variant="outline"
               className="mt-4"
@@ -122,8 +122,8 @@ export function ApplicationForm() {
   return (
     <section className="mx-auto max-w-2xl px-6 py-24">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold">Apply: {job.title}</h1>
-        <p className="mt-2 text-white/70">{job.location}</p>
+        <h1 className="text-3xl font-bold text-[#0a0a0a]">Apply: {job.title}</h1>
+        <p className="mt-2 text-neutral-600">{job.location}</p>
       </div>
 
       <div className="mb-6 flex gap-2">
@@ -132,7 +132,7 @@ export function ApplicationForm() {
             key={s.id}
             className={cn(
               "h-1 flex-1 rounded-full transition",
-              step >= s.id ? "bg-[#3b82f6]" : "bg-white/20"
+              step >= s.id ? "bg-[#fc4c02]" : "bg-neutral-200"
             )}
           />
         ))}
@@ -153,7 +153,7 @@ export function ApplicationForm() {
                   {...personalForm.register("fullName")}
                 />
                 {personalForm.formState.errors.fullName && (
-                  <p className="mt-1 text-sm text-red-400">
+                  <p className="mt-1 text-sm text-red-600">
                     {personalForm.formState.errors.fullName.message}
                   </p>
                 )}
@@ -167,7 +167,7 @@ export function ApplicationForm() {
                   {...personalForm.register("email")}
                 />
                 {personalForm.formState.errors.email && (
-                  <p className="mt-1 text-sm text-red-400">
+                  <p className="mt-1 text-sm text-red-600">
                     {personalForm.formState.errors.email.message}
                   </p>
                 )}
@@ -182,7 +182,7 @@ export function ApplicationForm() {
                   {...personalForm.register("phone")}
                 />
                 {personalForm.formState.errors.phone && (
-                  <p className="mt-1 text-sm text-red-400">
+                  <p className="mt-1 text-sm text-red-600">
                     {personalForm.formState.errors.phone.message}
                   </p>
                 )}
@@ -205,7 +205,7 @@ export function ApplicationForm() {
                   })}
                 />
                 {experienceForm.formState.errors.yearsOfExperience && (
-                  <p className="mt-1 text-sm text-red-400">
+                  <p className="mt-1 text-sm text-red-600">
                     {experienceForm.formState.errors.yearsOfExperience.message}
                   </p>
                 )}
@@ -215,12 +215,12 @@ export function ApplicationForm() {
                 <textarea
                   id="skills"
                   rows={4}
-                  className="mt-1 flex w-full rounded-lg border border-white/20 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[#3b82f6]"
+                  className="mt-1 flex w-full rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm text-[#0a0a0a] placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#fc4c02]"
                   placeholder="Describe your skills and technologies..."
                   {...experienceForm.register("skills")}
                 />
                 {experienceForm.formState.errors.skills && (
-                  <p className="mt-1 text-sm text-red-400">
+                  <p className="mt-1 text-sm text-red-600">
                     {experienceForm.formState.errors.skills.message}
                   </p>
                 )}
@@ -235,7 +235,7 @@ export function ApplicationForm() {
                   {...experienceForm.register("portfolioLink")}
                 />
                 {experienceForm.formState.errors.portfolioLink && (
-                  <p className="mt-1 text-sm text-red-400">
+                  <p className="mt-1 text-sm text-red-600">
                     {experienceForm.formState.errors.portfolioLink.message}
                   </p>
                 )}
@@ -253,10 +253,10 @@ export function ApplicationForm() {
                 onChange={handleResumeChange}
               />
               {resumeError && (
-                <p className="mt-2 text-sm text-red-400">{resumeError}</p>
+                <p className="mt-2 text-sm text-red-600">{resumeError}</p>
               )}
               {resumeFile && (
-                <p className="mt-2 text-sm text-emerald-400">
+                <p className="mt-2 text-sm text-[#fc4c02]">
                   Selected: {resumeFile.name}
                 </p>
               )}
