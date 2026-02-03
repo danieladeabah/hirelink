@@ -103,7 +103,7 @@ export function ApplicationForm() {
   if (!job) {
     return (
       <section className="mx-auto max-w-2xl px-6 py-24">
-        <Card>
+        <Card className="border-0 bg-[#fafafa]">
           <CardContent className="p-8">
             <p className="text-neutral-600">Job not found.</p>
             <Button
@@ -138,7 +138,7 @@ export function ApplicationForm() {
         ))}
       </div>
 
-      <Card>
+      <Card className="border-0 bg-[#fafafa]">
         <CardHeader>
           <h2 className="text-lg font-semibold">{STEPS[step - 1].label}</h2>
         </CardHeader>
