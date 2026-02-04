@@ -9,11 +9,11 @@ export function Header() {
           <img
             src="/logo.png"
             alt="HireLink"
-            width={36}
-            height={36}
+            width={120}
+            height={120}
             decoding="async"
             fetchPriority="high"
-            className="h-9 w-auto rounded-xl"
+            className="rounded-xl"
           />
         </Link>
         <nav className="flex items-center gap-4">
