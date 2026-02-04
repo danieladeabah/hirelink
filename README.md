@@ -42,8 +42,7 @@ Open [http://localhost:5173](http://localhost:5173).
 
 - **Zustand** – Chosen for low boilerplate, built-in localStorage persistence, and good fit for pipeline state
 - **localStorage** – No backend; all data persists in browser
-- **Vite** – Fast dev experience; existing project setup
-- **Dark theme** – Matches initial design; consistent across flows
+- **Vite** – Fast dev experience.
 
 ## Project Structure
 
